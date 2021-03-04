@@ -1,25 +1,21 @@
-import logo from './logo.svg';
+import React from 'react';
+import Home from './components/Home'
+import { Route, BrowserRouter as Router, Switch, Redirect } from 'react-router-dom';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const domain = "http://cocktail-maker:10000";
+const wsDomain = "ws:///cocktail-maker:10000/ws";
+export default class App extends React.Component {
+  render() {
+    return (
+      <div className="App">
+        <Router>
+          <Switch>
+            <Route path="/home" render={() => <Home wsDomain={wsDomain} domain={domain} />} />
+            <Redirect path="*" to="/home" />
+          </Switch>
+        </Router>
+      </div>
+    );
+  }
 }
-
-export default App;
